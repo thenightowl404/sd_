@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Community</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI;
+}
+
+body{
+  background:#070d09;
+  color:#fff;
+}
+
+/* TOP BAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 20px;
+  background:#0f1a14;
+  border-bottom:2px solid #1f3a2b;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:bold;
+  color:#00ff88;
+}
+
+a{
+  text-decoration:none;
+}
+
+/* BUTTONS */
+.btn{
+  padding:8px 12px;
+  background:#00ff88;
+  color:#000;
+  border-radius:8px;
+  font-size:14px;
+}
+
+/* LAYOUT */
+.container{
+  display:grid;
+  grid-template-columns:1fr 2fr 1fr;
+  gap:15px;
+  padding:15px;
+}
+
+/* CARD */
+.card{
+  background:#0f1a14;
+  border:1px solid #1f3a2b;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:12px;
+}
+
+h3{
+  color:#00ff88;
+  font-size:16px;
+  margin-bottom:10px;
+}
+
+/* LINKS */
+.link{
+  display:block;
+  padding:8px;
+  margin:6px 0;
+  border-radius:6px;
+  text-align:center;
+  font-size:14px;
+  color:#000;
+  font-weight:500;
+}
+
+.whatsapp{background:#25D366;}
+.facebook{background:#1877F2; color:#fff;}
+.discord{background:#5865F2; color:#fff;}
+
+/* POST */
+textarea{
+  width:100%;
+  height:70px;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid #1f3a2b;
+  background:#111a14;
+  color:#fff;
+  resize:none;
+}
+
+.post-btn{
+  margin-top:8px;
+  padding:8px 12px;
+  background:#00ff88;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* POST ITEM */
+.post{
+  padding:10px;
+  border-bottom:1px solid #1f3a2b;
+}
+
+.user{
+  color:#00ff88;
+  font-weight:bold;
+  font-size:14px;
+}
+
+.time{
+  font-size:11px;
+  color:#888;
+}
+
+p{
+  font-size:13px;
+  margin-top:4px;
+}
+
+.tag{
+  font-size:11px;
+  padding:2px 6px;
+  background:#00ff88;
+  color:#000;
+  border-radius:6px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">SkillOrbit Community</div>
+
+  <div>
+    <a class="btn" href="dashboard.html">Dashboard</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+<!-- LEFT -->
+<div>
+  <div class="card">
+    <h3>Join Groups</h3>
+
+    <a class="link whatsapp" href="#">WhatsApp</a>
+    <a class="link facebook" href="#">Facebook</a>
+    <a class="link discord" href="#">Discord</a>
+  </div>
+</div>
+
+<!-- CENTER -->
+<div>
+
+  <div class="card">
+    <h3>Create Post</h3>
+    <textarea placeholder="Share something..."></textarea>
+    <button class="post-btn">Post</button>
+  </div>
+
+  <div class="card">
+    <h3>Feed</h3>
+
+    <div class="post">
+      <div class="user">Moumita <span class="tag">New</span></div>
+      <div class="time">2 min ago</div>
+      <p>Started Full stack project 🚀</p>
+    </div>
+      <div class="post">
+      <div class="user">Zara</div>
+      <div class="time">5 min ago</div>
+      <p>Started Building Community Chat App!</p>
+    </div>
+     <div class="post">
+      <div class="user">Radia</div>
+      <div class="time">10 min ago</div>
+      <p>Built my Ai Chat Bot!</p>
+    </div>
+     <div class="post">
+      <div class="user">Ridika</div>
+      <div class="time">20 min ago</div>
+      <p>Started my Gaming Project!</p>
+    </div>
+
+    <div class="post">
+      <div class="user">Ayesha</div>
+      <div class="time">30 min ago</div>
+      <p>Built my portfolio website!</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- RIGHT -->
+<div>
+
+  <div class="card">
+    <h3>Stats</h3>
+    <p>👥 Members: 1200</p>
+    <p>💬 Posts: 3500</p>
+    <p>🔥 Active: 300</p>
+  </div>
+
+</div>
+
+</div>
+
+</body>
+</html>

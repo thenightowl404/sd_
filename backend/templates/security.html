@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Security</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:#e2e8f0;
+}
+
+/* HEADER */
+.header{
+    padding:20px 5%;
+    background:#1e293b;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:1.5rem;
+    font-weight:bold;
+}
+.logo span{ color:#22c55e; }
+
+.back-btn{
+    background:#22c55e;
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    color:#0f172a;
+    font-weight:600;
+}
+
+/* CONTAINER */
+.container{
+    padding:20px 5%;
+}
+
+/* SECTION */
+.section{
+    margin-bottom:25px;
+}
+
+.section h2{
+    color:#22c55e;
+    margin-bottom:10px;
+}
+
+/* CARD */
+.card{
+    background:#1e293b;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:10px;
+}
+
+/* INPUT */
+.input-group{
+    margin-bottom:12px;
+}
+.input-group label{
+    font-size:0.8rem;
+    color:#94a3b8;
+}
+
+.input-wrapper{
+    position:relative;
+}
+
+.input-group input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#0f172a;
+    color:white;
+    margin-top:5px;
+}
+
+/* EYE ICON */
+.eye{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:#94a3b8;
+}
+
+/* BUTTON */
+.btn{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#22c55e;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+/* TOGGLE */
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:10px;
+}
+
+.switch{
+    position:relative;
+    width:45px;
+    height:22px;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    background:#334155;
+    border-radius:20px;
+    top:0; left:0; right:0; bottom:0;
+    cursor:pointer;
+}
+
+.slider:before{
+    content:"";
+    position:absolute;
+    height:18px;
+    width:18px;
+    left:2px;
+    bottom:2px;
+    background:white;
+    border-radius:50%;
+    transition:0.3s;
+}
+
+input:checked + .slider{
+    background:#22c55e;
+}
+
+input:checked + .slider:before{
+    transform:translateX(22px);
+}
+
+/* MESSAGE */
+.message{
+    margin-top:10px;
+    font-size:0.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">SKILL<span>ORBIT</span></div>
+    <a href="{% url 'more' %}" class="back-btn">← Back</a>
+</div>
+
+<div class="container">
+
+    <!-- CHANGE PASSWORD -->
+    <div class="section">
+        <h2>🔑 Change Password</h2>
+
+        <form method="POST">
+    {% csrf_token %}
+
+    <div class="input-group">
+        <label>Current Password</label>
+        <input type="password" name="current_password" required>
+    </div>
+
+    <div class="input-group">
+        <label>New Password</label>
+        <input type="password" name="new_password" required>
+    </div>
+
+    <div class="input-group">
+        <label>Confirm Password</label>
+        <input type="password" name="confirm_password" required>
+    </div>
+
+    <button class="btn" type="submit">
+        Update Password
+    </button>
+
+    {% if msg %}
+        <div class="message">{{ msg }}</div>
+    {% endif %}
+</form>
+
+    <!-- SECURITY OPTIONS -->
+    <div class="section">
+        <h2>🛡️ Security Options</h2>
+
+        <div class="card">
+
+            <div class="item">
+                <span>Two-Factor Authentication</span>
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="item">
+                <span>Login Alerts</span>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+// show/hide password
+function toggle(id, icon){
+    let input = document.getElementById(id);
+    if(input.type === "password"){
+        input.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+
+// validation
+function changePassword(){
+    let current = document.getElementById("currentPass").value;
+    let newPass = document.getElementById("newPass").value;
+    let confirm = document.getElementById("confirmPass").value;
+    let msg = document.getElementById("msg");
+
+    if(current === "" || newPass === "" || confirm === ""){
+        msg.style.color = "orange";
+        msg.innerText = "All fields are required!";
+        return;
+    }
+
+    if(newPass.length < 6){
+        msg.style.color = "orange";
+        msg.innerText = "Password must be at least 6 characters!";
+        return;
+    }
+
+    if(newPass !== confirm){
+        msg.style.color = "red";
+        msg.innerText = "Passwords do not match!";
+        return;
+    }
+
+    msg.style.color = "#22c55e";
+    msg.innerText = "Password updated successfully!";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - About</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:#e2e8f0;
+}
+
+/* HEADER */
+.header{
+    padding:20px 5%;
+    background:#1e293b;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+}
+
+.logo{
+    font-size:1.5rem;
+    font-weight:bold;
+}
+.logo span{ color:#22c55e; }
+
+.back-btn{
+    background:#22c55e;
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    color:#0f172a;
+    font-weight:600;
+}
+
+/* CONTAINER */
+.container{
+    padding:20px 5%;
+}
+
+/* CARD */
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:15px;
+    border:1px solid #334155;
+}
+
+/* TITLE */
+.card h2{
+    color:#22c55e;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#94a3b8;
+    line-height:1.6;
+}
+
+/* HIGHLIGHT BOXES */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:12px;
+    margin-top:10px;
+}
+
+.box{
+    background:#0f172a;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #334155;
+    transition:0.3s;
+}
+
+.box:hover{
+    transform:translateY(-4px);
+    border-color:#22c55e;
+}
+
+.box i{
+    color:#22c55e;
+    margin-bottom:8px;
+    font-size:1.2rem;
+}
+
+/* BUTTON */
+.btn{
+    margin-top:10px;
+    display:inline-block;
+    padding:10px 14px;
+    background:#22c55e;
+    color:#0f172a;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* FAQ */
+.faq{
+    cursor:pointer;
+    padding:12px;
+    border-radius:10px;
+    background:#0f172a;
+    border:1px solid #334155;
+    margin-bottom:10px;
+}
+
+.answer{
+    display:none;
+    margin-top:8px;
+    color:#94a3b8;
+}
+
+/* STATS */
+.stats{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.stat{
+    flex:1;
+    min-width:120px;
+    background:#0f172a;
+    padding:15px;
+    border-radius:10px;
+    border:1px solid #334155;
+    text-align:center;
+}
+
+.stat h3{
+    color:#22c55e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">SKILL<span>ORBIT</span></div>
+    <a href="More.html" class="back-btn">← Back</a>
+</div>
+
+<div class="container">
+
+    <!-- INTRO -->
+    <div class="card">
+        <h2>🚀 About SkillOrbit</h2>
+        <p>
+            SkillOrbit is a modern learning platform designed to help students learn,
+            track progress, earn certificates, and build real career skills in one place.
+        </p>
+        <a class="btn" href="courses.html">Start Learning</a>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="card">
+        <h2>✨ What We Offer</h2>
+
+        <div class="grid">
+            <div class="box">
+                <i class="fas fa-book"></i>
+                <h4>Learning</h4>
+                <p>Structured courses</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-certificate"></i>
+                <h4>Certificates</h4>
+                <p>Verified achievements</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-briefcase"></i>
+                <h4>Jobs</h4>
+                <p>Career opportunities</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-users"></i>
+                <h4>Community</h4>
+                <p>Connect & grow</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="card">
+        <h2>📊 Platform Stats</h2>
+
+        <div class="stats">
+            <div class="stat">
+                <h3 id="users">0</h3>
+                <p>Students</p>
+            </div>
+
+            <div class="stat">
+                <h3 id="courses">0</h3>
+                <p>Courses</p>
+            </div>
+
+            <div class="stat">
+                <h3 id="certs">0</h3>
+                <p>Certificates</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ -->
+    <div class="card">
+        <h2>❓ FAQ</h2>
+
+        <div class="faq" onclick="toggle(this)">
+            What is SkillOrbit?
+            <div class="answer">A learning platform for skill development.</div>
+        </div>
+
+        <div class="faq" onclick="toggle(this)">
+            Are certificates real?
+            <div class="answer">Yes, they are verified upon course completion.</div>
+        </div>
+
+        <div class="faq" onclick="toggle(this)">
+            Is it free?
+            <div class="answer">Yes, basic learning is free.</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+// animated stats
+function count(id, target){
+    let el = document.getElementById(id);
+    let i = 0;
+
+    let interval = setInterval(()=>{
+        i++;
+        el.innerText = i;
+
+        if(i >= target){
+            clearInterval(interval);
+        }
+    },20);
+}
+
+count("users", 1250);
+count("courses", 48);
+count("certs", 320);
+
+// FAQ toggle
+function toggle(el){
+    let ans = el.querySelector(".answer");
+    ans.style.display = ans.style.display === "block" ? "none" : "block";
+}
+
+</script>
+
+</body>
+</html>

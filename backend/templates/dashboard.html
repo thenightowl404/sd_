@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Freelance Learning Dashboard</title>
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI, sans-serif;
+}
+body{
+  background:#0b0f0c;
+  color:#fff;
+  height:100vh;
+  overflow:hidden;
+}
+
+.container{
+  display:flex;
+  height:100vh;
+}
+
+/* LEFT PANEL */
+.left{
+  width:22%;
+  background:#0f1a14;
+  padding:20px;
+  border-right:2px solid #1f3a2b;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#00ff88;
+  margin-bottom:25px;
+}
+
+.tag{
+  font-size:12px;
+  color:#888;
+  margin-bottom:20px;
+}
+
+.nav a{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#cfd8d3;
+  text-decoration:none;
+  padding:12px;
+  margin:8px 0;
+  border-radius:8px;
+  transition:0.3s;
+  font-size:14px;
+}
+
+.nav a:hover{
+  background:#00ff88;
+  color:#000;
+}
+
+/* RIGHT PANEL */
+.right{
+  width:78%;
+  padding:25px;
+  overflow-y:auto;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.search{
+  background:#111a14;
+  border:1px solid #1f3a2b;
+  padding:10px 15px;
+  border-radius:8px;
+  width:250px;
+  color:#fff;
+}
+
+.welcome{
+  font-size:20px;
+  color:#00ff88;
+}
+
+.quote{
+  margin-top:5px;
+  font-size:13px;
+  color:#aaa;
+  font-style:italic;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-top:20px;
+}
+
+.stat{
+  background:#111a14;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #1f3a2b;
+  text-align:center;
+}
+
+.stat h2{
+  color:#00ff88;
+}
+
+.section-title{
+  margin-top:25px;
+  margin-bottom:10px;
+  color:#00ff88;
+  font-size:16px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#111a14;
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #1f3a2b;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:#00ff88;
+}
+
+.progress{
+  height:8px;
+  background:#1f3a2b;
+  border-radius:10px;
+  margin-top:10px;
+  overflow:hidden;
+}
+
+.bar{
+  height:100%;
+  background:#00ff88;
+}
+
+.badge{
+  display:inline-block;
+  padding:4px 8px;
+  font-size:11px;
+  background:#00ff88;
+  color:#000;
+  border-radius:5px;
+  margin-top:8px;
+}
+
+.small-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.mini{
+  background:#111a14;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #1f3a2b;
+}
+
+.activity{
+  font-size:13px;
+  color:#bbb;
+  line-height:1.6;
+}
+
+.dot{
+  color:#00ff88;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- LEFT SIDE -->
+  <div class="left">
+    <div class="logo">SkillOrbit</div>
+    <div class="tag">Freelance Learning Hub</div>
+
+    <div class="nav">
+      <a href="Home.html">🏠 Home</a>
+      <a href="index.html">📚 Courses</a>
+      <a href="Tracker.html">📊 Tracker</a>
+      <a href="Project.html">💼 Projects</a>
+      <a href="Community.html">💬 Community</a>
+      <a href="Certification.html">🏆 Certificates</a>
+      <a href="Notification.html">🔔 Notifications</a>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="right">
+
+    <div class="topbar">
+      <div>
+        <div class="welcome">Welcome, Freelancer 👋</div>
+        <div class="quote">"Build skills today, earn freedom tomorrow."</div>
+      </div>
+      <input class="search" placeholder="Search skills, courses..." />
+    </div>
+
+    <div class="stats">
+      <div class="stat"><h2>12</h2><p>Courses</p></div>
+      <div class="stat"><h2>8</h2><p>Projects</p></div>
+      <div class="stat"><h2>65%</h2><p>Progress</p></div>
+      <div class="stat"><h2>3</h2><p>Certificates</p></div>
+    </div>
+
+    <div class="section-title">Continue Learning</div>
+    <div class="cards">
+      <div class="card">
+        <h3>UI/UX Design Masterclass</h3>
+        <p>Resume your frontend journey</p>
+        <div class="progress"><div class="bar" style="width:70%"></div></div>
+      </div>
+      <div class="card">
+        <h3>React Native Mobile Apps</h3>
+        <p>Full Stack Web Developmen</p>
+        <div class="progress"><div class="bar" style="width:40%"></div></div>
+      </div>
+    </div>
+
+    <div class="section-title">Recommended For You</div>
+    <div class="cards">
+      <div class="card">
+        <h3>Python Bootcamp</h3>
+        <span class="badge">Trending</span>
+      </div>
+      <div class="card">
+        <h3>AI & Machine Learning</h3>
+        <span class="badge">Hot</span>
+      </div>
+      <div class="card">
+        <h3>Java Programming Mastery</h3>
+        <span class="badge">Important</span>
+      </div>
+    </div>
+
+    <div class="small-grid">
+      <div class="mini">
+        <div class="section-title">Recent Activity</div>
+        <div class="activity">
+          <p><span class="dot">●</span> Cloud Computing Essential</p>
+          <p><span class="dot">●</span> Started Data Science & Analytics</p>
+          <p><span class="dot">●</span> Earned Badge: Beginner</p>
+        </div>
+      </div>
+
+      <div class="mini">
+        <div class="section-title">Daily Streak</div>
+        <h2 style="color:#00ff88">7 Days 🔥</h2>
+        <p class="activity">Keep learning consistently</p>
+      </div>
+
+      <div class="mini">
+        <div class="section-title">Goal</div>
+        <h2 style="color:#00ff88">80%</h2>
+        <p class="activity">Freelance readiness</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - More</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:#e2e8f0;
+}
+
+/* HEADER */
+.header{
+    padding:20px 5%;
+    background:#1e293b;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    font-size:1.6rem;
+    font-weight:bold;
+}
+
+.logo span{ color:#22c55e; }
+
+/* SEARCH */
+.search-bar{
+    padding:20px 5%;
+}
+
+.search-bar input{
+    width:100%;
+    padding:12px 15px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+    background:#1e293b;
+    color:white;
+}
+
+/* SECTION */
+.section{
+    padding:10px 5% 30px;
+}
+
+.section h2{
+    margin:20px 0 15px;
+    color:#22c55e;
+    font-size:1.2rem;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.card{
+    background:#1e293b;
+    padding:18px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    border:1px solid #22c55e;
+}
+
+.icon{
+    font-size:1.4rem;
+    color:#22c55e;
+    width:30px;
+}
+
+.card h3{
+    font-size:1rem;
+}
+
+.card p{
+    font-size:0.8rem;
+    color:#94a3b8;
+}
+
+/* FOOTER */
+.footer{
+    text-align:center;
+    padding:20px;
+    margin-top:20px;
+    background:#1e293b;
+    font-size:0.9rem;
+}
+
+/* HOME BUTTON */
+.home-btn{
+    color:#e2e8f0;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:600;
+    padding:8px 12px;
+    border-radius:8px;
+    background:#22c55e;
+}
+
+.home-btn i{
+    color:#0f172a;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="logo">SKILL<span>ORBIT</span></div>
+
+    <!-- HOME BUTTON ADDED -->
+    <a href="{% url 'home' %}" class="home-btn">
+        <i class="fas fa-home"></i> Home
+    </a>
+</div>
+
+<!-- SEARCH -->
+<div class="search-bar">
+    <input type="text" placeholder="Search tools, courses, settings...">
+</div>
+
+<!-- ACCOUNT -->
+<div class="section">
+    <h2>👤 Account</h2>
+    <div class="grid">
+       
+        <a href="{% url 'profile' %}" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-user icon"></i>
+        <div>
+            <h3>Profile</h3>
+            <p>View & edit profile</p>
+        </div>
+    </div>
+</a>
+
+<a href="settings.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-gear icon"></i>
+        <div>
+            <h3>Settings</h3>
+            <p>App preferences</p>
+        </div>
+    </div>
+</a>
+
+<a href="security.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-lock icon"></i>
+        <div>
+            <h3>Security</h3>
+            <p>Password & privacy</p>
+        </div>
+    </div>
+</a>
+
+<a href="{% url 'logout' %}" style="text-decoration:none; color:inherit;">
+            <div class="card">
+                <i class="fas fa-right-from-bracket icon"></i>
+                <div>
+                    <h3>Logout</h3>
+                    <p>Sign out safely</p>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</div>
+
+<!-- LEARNING -->
+<div class="section">
+    <h2>📚 Learning</h2>
+    <div class="grid">
+        <div class="card"><i class="fas fa-book icon"></i><div><h3>Courses</h3><p>All enrolled courses</p></div></div>
+
+<a href="saved.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-bookmark icon"></i>
+        <div>
+            <h3>Saved</h3>
+            <p>Saved learning items</p>
+        </div>
+    </div>
+</a>
+
+<a href="certificate.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-certificate icon"></i>
+        <div>
+            <h3>Certificates</h3>
+            <p>Your achievements</p>
+        </div>
+    </div>
+</a>
+
+<a href="downloads.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-download icon"></i>
+        <div>
+            <h3>Downloads</h3>
+            <p>Offline materials</p>
+        </div>
+    </div>
+</a>
+</div>
+</div>
+
+<!-- CAREER -->
+<div class="section">
+    <h2>💼 Career</h2>
+    <div class="grid">
+        
+<a href="jobs.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-briefcase icon"></i>
+        <div>
+            <h3>Jobs</h3>
+            <p>Freelance opportunities</p>
+        </div>
+    </div>
+</a>
+
+<div class="card"><i class="fas fa-chart-line icon"></i><div><h3>Progress</h3><p>Track growth</p></div></div>
+        <div class="card"><i class="fas fa-wallet icon"></i><div><h3>Earnings</h3><p>Income history</p></div></div>
+
+<a href="leaderboard.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-trophy icon"></i>
+        <div>
+            <h3>Leaderboard</h3>
+            <p>Top learners</p>
+        </div>
+    </div>
+</a>
+</div>
+</div>
+
+<!-- INSTRUCTOR -->
+<div class="section">
+    <h2>🧑‍🏫 Instructor</h2>
+    <div class="grid">
+        <a href="instructor_login.html" style="text-decoration:none; color:inherit;">
+            <div class="card">
+                <i class="fas fa-chalkboard-teacher icon"></i>
+                <div>
+                    <h3>Instructor Dashboard</h3>
+                    <p>Login & manage courses</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- SUPPORT -->
+<div class="section">
+    <h2>❓ Support</h2>
+    <div class="grid">
+
+        <!-- ONLY CHANGE MADE HERE -->
+        <a href="help.html" style="text-decoration:none; color:inherit;">
+            <div class="card">
+                <i class="fas fa-headset icon"></i>
+                <div>
+                    <h3>Help Center</h3>
+                    <p>Get support</p>
+                </div>
+            </div>
+        </a>
+
+<a href="messages.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-message icon"></i>
+        <div>
+            <h3>Messages</h3>
+            <p>Chat with support</p>
+        </div>
+    </div>
+</a>
+
+<a href="about.html" style="text-decoration:none; color:inherit;">
+    <div class="card">
+        <i class="fas fa-circle-info icon"></i>
+        <div>
+            <h3>About</h3>
+            <p>Platform info</p>
+        </div>
+    </div>
+</a>
+</div>
+</div>
+
+<div class="footer">
+    © 2025 SkillOrbit - All Rights Reserved
+</div>
+
+</body>
+</html>

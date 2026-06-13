@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Get Certified</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI;
+}
+
+body{
+  background:#0b120e;
+  color:#fff;
+}
+
+/* NAVBAR */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 25px;
+  background:#0f1a13;
+  border-bottom:1px solid #1f3a2a;
+}
+
+.navbar h2{
+  color:#00ff88;
+}
+
+.navbar a{
+  text-decoration:none;
+  color:#fff;
+  background:#00ff88;
+  padding:8px 14px;
+  border-radius:6px;
+  font-weight:600;
+}
+
+/* CONTAINER */
+.container{
+  max-width:900px;
+  margin:40px auto;
+  padding:20px;
+}
+
+/* CARD */
+.card{
+  background:#111a14;
+  border:1px solid #1f3a2a;
+  padding:25px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+.card h3{
+  color:#00ff88;
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#cfd6d2;
+  line-height:1.5;
+}
+
+/* STEPS */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  margin-top:15px;
+}
+
+.step{
+  background:#0f1a13;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #1f3a2a;
+}
+
+.step span{
+  color:#00ff88;
+  font-weight:bold;
+}
+
+/* BUTTON */
+.btn{
+  display:inline-block;
+  margin-top:15px;
+  padding:10px 16px;
+  background:#00ff88;
+  color:#000;
+  font-weight:bold;
+  border-radius:6px;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.btn:hover{
+  background:#00cc6a;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <h2>SkillOrbit</h2>
+  <a href="dashboard.html">Dashboard</a>
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h3>🎓 Get Certified</h3>
+    <p>
+      Complete your learning journey and earn verified certificates from SkillOrbit.
+      Build your portfolio and showcase your skills to the world.
+    </p>
+    <a href="courses.html" class="btn">Start Learning</a>
+  </div>
+
+  <div class="card">
+    <h3>📌 Certification Process</h3>
+
+    <div class="steps">
+      <div class="step">
+        <span>Step 1</span>
+        <p>Enroll in a course</p>
+      </div>
+
+      <div class="step">
+        <span>Step 2</span>
+        <p>Complete all modules</p>
+      </div>
+
+      <div class="step">
+        <span>Step 3</span>
+        <p>Pass final assessment</p>
+      </div>
+
+      <div class="step">
+        <span>Step 4</span>
+        <p>Download certificate</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🏆 Your Certification Status</h3>
+    <p>No certificates earned yet. Start learning to unlock achievements.</p>
+    <a href="courses.html" class="btn">View Courses</a>
+  </div>
+
+</div>
+
+</body>
+</html>

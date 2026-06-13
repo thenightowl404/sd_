@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Tracker</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:#0b0f0c;
+    color:#fff;
+}
+
+/* HEADER */
+.header{
+    background:#0f1a14;
+    padding:15px 25px;
+    border-bottom:2px solid #1f3a2b;
+    position:relative;
+}
+
+.logo{
+    color:#00ff88;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* DASHBOARD BUTTON */
+.dashboard-btn{
+    position:absolute;
+    right:20px;
+    top:12px;
+    background:#00ff88;
+    color:#000;
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* CONTAINER */
+.container{
+    padding:25px;
+}
+
+/* CARD */
+.card{
+    background:#111a14;
+    border:1px solid #1f3a2b;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
+}
+
+h2{
+    color:#00ff88;
+    margin-bottom:10px;
+}
+
+/* GRAPH (UNCHANGED) */
+.chart-box{
+    width:100%;
+    height:260px;
+    background:#0b120e;
+    border:1px solid #1f3a2b;
+    border-radius:10px;
+    padding:10px;
+}
+
+canvas{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+/* STATS */
+.stats{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+    color:#aaa;
+    font-size:14px;
+}
+
+.highlight{
+    color:#00ff88;
+    font-weight:bold;
+}
+
+/* MESSAGE */
+.message{
+    margin-top:10px;
+    padding:10px;
+    background:#0f1a14;
+    border-left:3px solid #00ff88;
+    font-size:14px;
+}
+
+/* BUTTON */
+.btn{
+    margin-top:10px;
+    padding:10px;
+    width:100%;
+    background:#00ff88;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.mini{
+    background:#0b120e;
+    border:1px solid #1f3a2b;
+    padding:15px;
+    border-radius:10px;
+}
+
+.task{
+    display:flex;
+    justify-content:space-between;
+    padding:5px 0;
+    font-size:14px;
+}
+
+.done{
+    color:#00ff88;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="logo">SkillOrbit Tracker</div>
+
+    <!-- ONLY ADDED BUTTON -->
+    <button class="dashboard-btn" onclick="window.location.href='dashboard.html'">
+        Dashboard
+    </button>
+</div>
+
+<div class="container">
+
+<!-- GRAPH -->
+<div class="card">
+    <h2>Weekly Learning Analytics</h2>
+
+    <div class="chart-box">
+        <canvas id="chart"></canvas>
+    </div>
+
+    <div class="stats">
+        <div>Average: <span class="highlight" id="avg"></span>%</div>
+        <div>Best Day: <span class="highlight" id="best"></span></div>
+    </div>
+
+    <div class="message" id="msg"></div>
+    <div class="message" id="streakMsg"></div>
+
+    <button class="btn" onclick="resetData()">Reset Progress</button>
+</div>
+
+<!-- DAILY TASK -->
+<div class="grid">
+
+<div class="mini">
+    <h2>Daily Tasks</h2>
+    <div class="task"><span>HTML Practice</span><span class="done">✔</span></div>
+    <div class="task"><span>CSS Layout</span><span>⏳</span></div>
+    <div class="task"><span>JS Practice</span><span>⏳</span></div>
+</div>
+
+<!-- ASSIGNMENT -->
+<div class="mini">
+    <h2>Assignments</h2>
+    <div class="task"><span>React Project</span><span>70%</span></div>
+    <div class="task"><span>API Build</span><span>40%</span></div>
+</div>
+
+<!-- QUIZ -->
+<div class="mini">
+    <h2>Quiz</h2>
+    <div class="task"><span>HTML Quiz</span><span class="done">✔</span></div>
+    <div class="task"><span>JS Quiz</span><span>⏳</span></div>
+</div>
+
+<!-- COURSE GROWTH -->
+<div class="mini">
+    <h2>Course Growth</h2>
+    <div class="task"><span>Web Dev</span><span>70%</span></div>
+    <div class="task"><span>Python</span><span>45%</span></div>
+    <div class="task"><span>DSA</span><span>30%</span></div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const canvas = document.getElementById("chart");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+}
+resize();
+
+const labels = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+let data = JSON.parse(localStorage.getItem("skill_data")) || [30,45,60,50,70,85,90];
+
+let bestIndex = 0;
+
+function save(){
+    localStorage.setItem("skill_data", JSON.stringify(data));
+}
+
+function updateStats(){
+
+    let avg = Math.round(data.reduce((a,b)=>a+b)/data.length);
+    bestIndex = data.indexOf(Math.max(...data));
+
+    document.getElementById("avg").innerText = avg;
+    document.getElementById("best").innerText = labels[bestIndex];
+
+    document.getElementById("msg").innerText =
+        avg < 50 ? "⚠️ Improve consistency"
+        : avg < 75 ? "👍 Good progress"
+        : "🔥 Excellent performance";
+
+    let streak = 0;
+    for(let i=data.length-1;i>=0;i--){
+        if(data[i] > 50) streak++;
+        else break;
+    }
+
+    document.getElementById("streakMsg").innerText =
+        "🔥 Current Streak: " + streak + " days";
+}
+
+/* GRAPH (UNCHANGED) */
+function draw(){
+
+    let w = canvas.width;
+    let h = canvas.height;
+
+    ctx.clearRect(0,0,w,h);
+
+    let barWidth = w / labels.length;
+    let chartHeight = h - 20;
+
+    for(let i=0;i<labels.length;i++){
+
+        let x = i * barWidth + barWidth/2;
+        let barHeight = (data[i]/100)*chartHeight;
+
+        ctx.fillStyle = (i===bestIndex) ? "#ffd700" : "#00ff88";
+
+        ctx.fillRect(x-10, chartHeight-barHeight, 20, barHeight);
+
+        ctx.fillStyle = "#aaa";
+        ctx.font = "11px Arial";
+        ctx.textAlign = "center";
+        ctx.fillText(labels[i], x, h-5);
+
+        data[i+"_x"] = x;
+    }
+}
+
+/* EDIT */
+canvas.addEventListener("click",(e)=>{
+    let rect = canvas.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+
+    for(let i=0;i<labels.length;i++){
+        if(Math.abs(x - data[i+"_x"]) < 15){
+            let val = prompt("Enter % for " + labels[i], data[i]);
+            if(val !== null){
+                data[i] = Math.max(0, Math.min(100, Number(val)));
+                save();
+                updateStats();
+                draw();
+            }
+        }
+    }
+});
+
+updateStats();
+draw();
+
+window.addEventListener("resize",()=>{
+    resize();
+    draw();
+});
+
+</script>
+
+</body>
+</html>

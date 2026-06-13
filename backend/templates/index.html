@@ -1,0 +1,343 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>SkillOrbit - All Courses</title> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+<style> 
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', sans-serif;} 
+body{background:#f4f7fc;color:#000;transition:0.3s;} 
+body.dark{background:#121212;color:#f0f0f0;} 
+/* Navbar */ 
+.navbar{background:white;padding:1rem 2%;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 15px rgba(0,0,0,0.08);} 
+body.dark .navbar{background:#1e1e1e;box-shadow:0 2px 12px rgba(0,0,0,0.3);} 
+.logo{font-size:1.6rem;font-weight:800;} 
+.logo span{color:#27ae60;} 
+.nav-links{display:flex;gap:0.6rem;align-items:center;} 
+.nav-links a{padding:0.5rem 1.1rem;background:#27ae60;color:white;border-radius:40px;text-decoration:none;font-weight:500;transition:0.25s;} 
+.nav-links a:hover{background:#1e8449;transform:translateY(-2px);} 
+.dark-toggle{font-size:1.3rem;cursor:pointer;background:#2c3e50;padding:0.4rem 0.9rem;border-radius:40px;color:white;} 
+/* Hero */ 
+.hero{text-align:center;padding:3rem 1.5rem;background:linear-gradient(135deg,#1a2a3a,#27ae60);color:white;border-radius:16px;margin:2rem;} 
+.hero h1{font-size:2rem;font-weight:700;line-height:1.4;} 
+/* Section Titles */ 
+.section-title{padding:2rem 5%;font-size:1.8rem;font-weight:700;color:#1a1a1a;} 
+body.dark .section-title{color:#f0f0f0;} 
+/* Courses Grid */ 
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;padding:0 5%;margin-bottom:3rem;} 
+.course-card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.08);transition:0.3s;cursor:pointer;} 
+body.dark .course-card{background:#262626;color:#eee;} 
+.course-card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(0,0,0,0.12);} 
+.course-content{padding:1rem;} 
+.course-content h3{font-size:1.1rem;margin-bottom:0.3rem;font-weight:600;} 
+.course-content .rating{color:#f1c40f;font-size:0.9rem;margin-bottom:0.3rem;} 
+.course-content .students{font-size:0.85rem;color:#555;margin-bottom:0.5rem;} 
+body.dark .course-content .students{color:#ccc;} 
+.course-content .price{font-weight:700;color:#27ae60;font-size:1rem;margin-bottom:0.5rem;} 
+.course-content .badge{display:inline-block;background:#27ae60;color:white;padding:2px 8px;font-size:0.7rem;border-radius:8px;margin-right:4px;margin-bottom:4px;} 
+.course-content .learns{font-size:0.85rem;margin-top:6px;color:#555;line-height:1.3;} 
+body.dark .course-content .learns{color:#ccc;} 
+.course-emoji-container{text-align:center;margin-top:10px;} 
+.course-emoji{font-size:2.5rem;margin:0 5px;display:inline-block;animation:float 2s ease-in-out infinite;} 
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}} 
+/* Course Buttons */ 
+.course-buttons button{ margin-right: 6px; margin-top: 5px; padding: 0.5rem 1rem; border-radius: 40px; border: none; cursor: pointer; font-weight: 500; transition: 0.3s; background:#27ae60; color:white; } 
+.course-buttons button:hover{ background:#1e8449; } 
+/* Popular Courses */ 
+.popular-course-card{border:2px solid #27ae60;} 
+.popular-badge{position:absolute;top:8px;right:8px;background:#27ae60;color:white;padding:4px 10px;border-radius:20px;font-size:0.75rem;font-weight:600;} 
+/* Community, Mentorship, Events Enhanced */ 
+.community, .mentorship, .events{ padding:3rem 5%;margin-bottom:3rem;border-radius:16px; } 
+body.dark .community, body.dark .mentorship, body.dark .events{color:#eee;} 
+.community .grid, .mentorship .grid, .events .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;} 
+.community .card, .mentorship .card, .events .card{ background:white; border-radius:16px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.08); transition:0.3s; cursor:pointer; position:relative; } 
+body.dark .community .card, body.dark .mentorship .card, body.dark .events .card{background:#262626;} 
+.community .card:hover, .mentorship .card:hover, .events .card:hover{transform:translateY(-5px);box-shadow:0 12px 28px rgba(0,0,0,0.12);} 
+.community .card .card-content, .mentorship .card .card-content, .events .card .card-content{padding:1rem;} 
+.community .card h3, .mentorship .card h3, .events .card h3{font-size:1.2rem;margin-bottom:0.5rem;font-weight:600;} 
+.community .card p, .mentorship .card p, .events .card p{font-size:0.9rem;color:#555;line-height:1.3;} 
+body.dark .community .card p, body.dark .mentorship .card p, body.dark .events .card p{color:#ccc;} 
+.community .card button, .mentorship .card button, .events .card button{ margin-top:0.7rem;padding:0.5rem 1rem;background:#27ae60;color:white;border:none;border-radius:40px;cursor:pointer;transition:0.3s; } 
+.community .card button:hover, .mentorship .card button:hover, .events .card button:hover{background:#1e8449;} 
+/* Subscribe Section */ 
+.subscribe{padding:3rem 5%;margin-bottom:3rem;border-radius:16px;background:#eef3fb;} 
+body.dark .subscribe{background:#1e1e1e;color:#eee;} 
+.subscribe form{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;} 
+.subscribe input[type="email"]{padding:0.7rem 1rem;border-radius:40px;border:1px solid #27ae60;outline:none;width:250px;} 
+.subscribe button{padding:0.7rem 1.5rem;background:#27ae60;color:white;border:none;border-radius:40px;cursor:pointer;transition:0.3s;} 
+.subscribe button:hover{background:#1e8449;} 
+/* How it works */ 
+.how-it-works{padding:3rem 5%;background:#eef3fb;border-radius:16px;margin-bottom:3rem;} 
+body.dark .how-it-works{background:#1e1e1e;} 
+.how-it-works .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;text-align:center;} 
+.how-it-works i{font-size:2rem;color:#27ae60;margin-bottom:0.5rem;} 
+.how-it-works h3{font-size:1.1rem;margin-bottom:0.5rem;font-weight:600;} 
+/* CTA Banner */ 
+.cta-banner{padding:3rem 5%;margin:3rem 0;text-align:center;background:#27ae60;color:white;border-radius:16px;} 
+.cta-banner h2{font-size:1.8rem;margin-bottom:1rem;} 
+.cta-banner a{padding:0.7rem 1.5rem;background:white;color:#27ae60;font-weight:600;border-radius:40px;text-decoration:none;transition:0.3s;} 
+.cta-banner a:hover{background:#1e8449;color:white;} 
+/* Responsive */ 
+@media(max-width:768px){ .course-grid,.how-it-works .steps,.community .grid,.mentorship .grid,.events .grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr));} } 
+</style> 
+</head> 
+<body> 
+<!-- Navbar --> 
+<div class="navbar"> 
+<div class="logo">SKILL<span>ORBIT</span></div> 
+<div class="nav-links"> 
+<a href="HoMe.html">Home</a> 
+<a href="#">Get Certified</a> 
+<a href="Image.html">Login</a> 
+<span class="dark-toggle">🌙 Dark</span> 
+</div> 
+</div> 
+<!-- Hero --> 
+<div class="hero"> 
+<h1>Learn New Skills & Advance Your Career</h1> 
+</div> 
+<!-- Popular Courses Section --> 
+<h2 class="section-title">🔥 Popular Courses</h2> 
+<div class="course-grid" id="popularGrid"></div> 
+<!-- All Courses Section --> 
+<h2 class="section-title">Available Courses</h2> 
+<div class="course-grid" id="courseGrid"></div> 
+<!-- Community Section --> 
+<h2 class="section-title">🌐 Community</h2> 
+<div class="community"> 
+<div class="grid"> 
+<div class="card"> 
+<div class="card-content"> 
+<h3>Join Global Learners</h3> 
+<p>Connect with thousands of learners worldwide, share insights, and grow together.</p> 
+<div class="course-emoji-container"> 
+<span class="course-emoji">🌎</span> 
+<span class="course-emoji">👩‍💻</span> 
+<span class="course-emoji">💬</span> 
+</div> 
+<button>Join Now</button> 
+</div> 
+</div> 
+<div class="card"> 
+<div class="card-content"> 
+<h3>Discussion Forums</h3> 
+<p>Ask questions, share knowledge, and help peers while enhancing your learning experience.</p> 
+<div class="course-emoji-container"> 
+<span class="course-emoji">💭</span> 
+<span class="course-emoji">📝</span> 
+<span class="course-emoji">🤝</span> 
+</div> 
+<button>Explore Forums</button> 
+</div> 
+</div> 
+</div> 
+</div> 
+<!-- Mentorship Section --> 
+<h2 class="section-title">👨‍🏫 Mentorship</h2> 
+<div class="mentorship"> 
+<div class="grid"> 
+<div class="card"> 
+<div class="card-content"> 
+<h3>Expert Mentors</h3> 
+<p>Get guidance from industry leaders to plan your learning journey effectively.</p> 
+<div class="course-emoji-container"> 
+<span class="course-emoji">👨‍🏫</span> 
+<span class="course-emoji">📚</span> 
+<span class="course-emoji">🧭</span> 
+</div> 
+<button>Meet Mentors</button> 
+</div> 
+</div> 
+<div class="card"> 
+<div class="card-content"> 
+<h3>Project Support</h3> 
+<p>Work on real-world projects with guidance from experienced mentors.</p> 
+<div class="course-emoji-container"> 
+<span class="course-emoji">🛠️</span> 
+<span class="course-emoji">💡</span> 
+<span class="course-emoji">✅</span> 
+</div> 
+<button>Get Support</button> 
+</div> 
+</div> 
+</div> 
+</div> 
+<!-- Events Section --> 
+<h2 class="section-title">📅 Upcoming Events</h2> 
+<div class="events"> 
+<div class="grid"> 
+<div class="card"> 
+<div class="card-content"> 
+<h3>Webinar: AI in 2026</h3> 
+<p>Apr 20, 2026 | Free Online Webinar covering AI trends.</p> 
+<div class="course-emoji-container"> 
+<span class="course-emoji">🤖</span> 
+<span class="course-emoji">💻</span> 
+<span class="course-emoji">📊</span> 
+</div> 
+<button>Register</button> 
+</div> 
+</div> 
+<div class="card"> 
+<div class="card-content"> 
+<h3>Bootcamp: Full Stack</h3> 
+<p>May 5-10, 2026 | $99 | Hands-on coding bootcamp for beginners.</p> 
+<div class="course-emoji-container"> 
+<span class="course-emoji">💻</span> 
+<span class="course-emoji">🖥️</span> 
+<span class="course-emoji">🛠️</span> 
+</div> 
+<button>Register</button> 
+</div> 
+</div> 
+<div class="card"> 
+<div class="card-content"> 
+<h3>Workshop: Digital Marketing</h3> 
+<p>May 15, 2026 | Free Online | Learn practical marketing skills.</p> 
+<div class="course-emoji-container"> 
+<span class="course-emoji">📈</span> 
+<span class="course-emoji">📊</span> 
+<span class="course-emoji">💡</span> 
+</div> 
+<button>Register</button> 
+</div> 
+</div> 
+</div> 
+</div> 
+<!-- Subscribe Section --> 
+<h2 class="section-title">📬 Subscribe for Updates</h2> 
+<div class="subscribe"> 
+<form> 
+<input type="email" placeholder="Enter your email" required> 
+<button type="submit">Subscribe</button> 
+</form> 
+</div> 
+<!-- How It Works --> 
+<h2 class="section-title">🚀 How SkillOrbit Works</h2> 
+<div class="how-it-works"> 
+<div class="steps"> 
+<div> 
+<i class="fas fa-user-graduate"></i> 
+<h3>Sign Up & Learn</h3> 
+<p>Create your account, browse courses, and choose your learning path.</p> 
+</div> 
+<div> 
+<i class="fas fa-laptop-code"></i> 
+<h3>Hands-On Practice</h3> 
+<p>Work on real projects, exercises, and coding challenges to gain practical experience.</p> 
+</div> 
+<div> 
+<i class="fas fa-chalkboard-teacher"></i> 
+<h3>Mentorship & Guidance</h3> 
+<p>Interact with expert mentors, join discussions, and get personalized guidance.</p> 
+</div> 
+<div> 
+<i class="fas fa-certificate"></i> 
+<h3>Get Certified</h3> 
+<p>Earn globally recognized certificates to showcase your skills and boost your career.</p> 
+</div> 
+<div> 
+<i class="fas fa-rocket"></i> 
+<h3>Launch Your Career</h3> 
+<p>Apply your skills to real-world projects, internships, or new job opportunities.</p> 
+</div> 
+</div> 
+</div> 
+<!-- CTA Banner --> 
+<div class="cta-banner"> 
+<h2>Start Your Learning Journey Today!</h2> 
+<a href="Image.html">Join for Free</a> 
+</div> 
+<script> 
+// Dark mode toggle 
+const darkToggle = document.querySelector(".dark-toggle"); 
+darkToggle.onclick = () => { 
+document.body.classList.toggle("dark"); 
+darkToggle.innerHTML = document.body.classList.contains("dark") ? "☀️ Light" : "🌙 Dark"; 
+}; 
+// Courses Data 
+const coursesData = [ 
+{title:"Full Stack Web Development", students:"15,230", rating:"4.9", price:"Free", category:["Web","Beginner"], learns:["HTML, CSS, JS","React Basics","Node & Express"], popular:true}, 
+{title:"Python Bootcamp", students:"12,500", rating:"4.8", price:"BDT4900", category:["Python","Beginner"], learns:["Python Basics","OOP","Projects"], popular:true}, 
+{title:"Data Science & Analytics", students:"9,320", rating:"4.7", price:"BDT5900", category:["Data","Intermediate"], learns:["Pandas & NumPy","Visualization","ML"], popular:false}, 
+{title:"AI & Machine Learning", students:"10,200", rating:"4.9", price:"BDT3900", category:["AI","Advanced"], learns:["Neural Networks","TensorFlow","Projects"], popular:true}, 
+{title:"Cybersecurity Essentials", students:"8,120", rating:"4.8", price:"BDT5000", category:["Security","Beginner"], learns:["Network Security","Ethical Hacking","Hands-on Labs"], popular:false}, 
+{title:"Java Programming Mastery", students:"11,500", rating:"4.8", price:"BDT6500", category:["Web","Intermediate"], learns:["Java Basics","OOP Concepts","Projects","Mobile App Development"], popular:true}, 
+{title:"Cloud Computing Essentials", students:"7,800", rating:"4.7", price:"BDT5900", category:["Data","Intermediate"], learns:["AWS Basics","Cloud Deployment","Hands-on Labs"], popular:true}, 
+{title:"React Native Mobile Apps", students:"6,300", rating:"4.6", price:"BDT4900", category:["Web","Intermediate"], learns:["React Native Basics","Mobile UI","Projects"], popular:false}, 
+{title:"Advanced SQL & Databases", students:"5,900", rating:"4.7", price:"BDT3900", category:["Data","Advanced"], learns:["SQL Queries","Database Design","Optimization"], popular:false}, 
+// Continuing coursesData
+{
+  title: "UI/UX Design Masterclass",
+  students: "7,200",
+  rating: "4.8",
+  price: "BDT4900",
+  category: ["Design", "Intermediate"],
+  learns: ["User Research", "Wireframing", "Prototyping"],
+  popular: true
+},
+{
+  title: "Digital Marketing 101",
+  students: "9,000",
+  rating: "4.7",
+  price: "BDT3900",
+  category: ["Marketing", "Beginner"],
+  learns: ["SEO Basics", "Social Media", "Email Marketing"],
+  popular: false
+},
+{
+  title: "Blockchain Essentials",
+  students: "4,800",
+  rating: "4.6",
+  price: "BDT5900",
+  category: ["Blockchain", "Intermediate"],
+  learns: ["Blockchain Concepts", "Smart Contracts", "Projects"],
+  popular: false
+}
+];
+
+// Function to create course cards
+function createCourseCard(course) {
+  const card = document.createElement("div");
+  card.classList.add("course-card");
+  if (course.popular) card.classList.add("popular-course-card");
+
+  let badges = course.category.map(cat => `<span class="badge">${cat}</span>`).join('');
+
+  let learnsList = course.learns.map(item => `<div class="learns">• ${item}</div>`).join('');
+
+  card.innerHTML = `
+    ${course.popular ? '<div class="popular-badge">Popular</div>' : ''}
+    <div class="course-content">
+      <h3>${course.title}</h3>
+      <div class="rating">⭐ ${course.rating}</div>
+      <div class="students">${course.students} students</div>
+      <div class="price">${course.price}</div>
+      ${badges}
+      ${learnsList}
+      <div class="course-buttons">
+        <a href="Payment.html">
+        <button>Enroll</button>
+        </a>
+      </div>
+    </div>
+  `
+  return card;
+}
+
+// Render courses
+const courseGrid = document.getElementById("courseGrid");
+const popularGrid = document.getElementById("popularGrid");
+
+coursesData.forEach(course => {
+  const card = createCourseCard(course);
+  courseGrid.appendChild(card);
+  if (course.popular) {
+    const popCard = createCourseCard(course);
+    popularGrid.appendChild(popCard);
+  }
+});
+</script>
+</body>
+</html>

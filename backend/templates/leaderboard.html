@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Leaderboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:#e2e8f0;
+}
+
+/* HEADER */
+.header{
+    padding:20px 5%;
+    background:#1e293b;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:1.5rem;
+    font-weight:bold;
+}
+.logo span{ color:#22c55e; }
+
+.back-btn{
+    background:#22c55e;
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    color:#0f172a;
+    font-weight:600;
+}
+
+/* SEARCH */
+.search{
+    padding:15px 5%;
+}
+
+.search input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background:#1e293b;
+    color:white;
+    outline:none;
+}
+
+/* CONTAINER */
+.container{
+    padding:10px 5%;
+}
+
+/* USER CARD */
+.user{
+    background:#1e293b;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:0.3s;
+}
+
+.user:hover{
+    transform:translateY(-3px);
+    border:1px solid #22c55e;
+}
+
+/* LEFT */
+.left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+/* RANK */
+.rank{
+    width:30px;
+    height:30px;
+    background:#0f172a;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    border:1px solid #334155;
+}
+
+/* TOP 3 HIGHLIGHT */
+.top1{ border-left:4px solid gold; }
+.top2{ border-left:4px solid silver; }
+.top3{ border-left:4px solid #cd7f32; }
+
+/* POINTS */
+.points{
+    color:#22c55e;
+    font-weight:bold;
+}
+
+/* BADGE */
+.badge{
+    font-size:11px;
+    padding:3px 8px;
+    background:#0f172a;
+    border:1px solid #334155;
+    border-radius:6px;
+}
+
+/* SEARCH FILTER */
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">SKILL<span>ORBIT</span></div>
+    <a href="More.html" class="back-btn">← Back</a>
+</div>
+
+<!-- SEARCH -->
+<div class="search">
+    <input type="text" id="search" placeholder="Search learners...">
+</div>
+
+<div class="container" id="container"></div>
+
+<script>
+
+let users = [
+    {name:"Ayesha Rahman", points:980, level:"Pro"},
+    {name:"Tanvir Ahmed", points:920, level:"Advanced"},
+    {name:"Sadia Islam", points:880, level:"Advanced"},
+    {name:"Mehedi Hasan", points:750, level:"Intermediate"},
+    {name:"Nusrat Jahan", points:700, level:"Intermediate"},
+    {name:"Rakib Hossain", points:650, level:"Beginner"}
+];
+
+// sort by points
+users.sort((a,b)=>b.points-a.points);
+
+// render
+function render(){
+    let box = document.getElementById("container");
+    let search = document.getElementById("search").value.toLowerCase();
+
+    box.innerHTML = "";
+
+    let filtered = users.filter(u =>
+        u.name.toLowerCase().includes(search)
+    );
+
+    filtered.forEach((u,i) => {
+
+        let className = "";
+        if(i===0) className="top1";
+        else if(i===1) className="top2";
+        else if(i===2) className="top3";
+
+        box.innerHTML += `
+        <div class="user ${className}">
+            
+            <div class="left">
+                <div class="rank">${i+1}</div>
+                <div>
+                    <strong>${u.name}</strong><br>
+                    <span class="badge">${u.level}</span>
+                </div>
+            </div>
+
+            <div class="points">${u.points} XP</div>
+
+        </div>
+        `;
+    });
+}
+
+// search
+document.getElementById("search").addEventListener("input", render);
+
+render();
+
+</script>
+
+</body>
+</html>

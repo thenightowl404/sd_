@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Settings</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:#e2e8f0;
+    transition:0.3s;
+}
+
+/* HEADER */
+.header{
+    padding:20px 5%;
+    background:#1e293b;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:1.5rem;
+    font-weight:bold;
+}
+.logo span{ color:#22c55e; }
+
+.back-btn{
+    background:#22c55e;
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    color:#0f172a;
+    font-weight:600;
+}
+
+/* CONTAINER */
+.container{
+    padding:20px 5%;
+}
+
+/* SECTION */
+.section{
+    margin-bottom:25px;
+}
+
+.section h2{
+    color:#22c55e;
+    margin-bottom:10px;
+    font-size:1.1rem;
+}
+
+/* ITEM */
+.item{
+    background:#1e293b;
+    padding:15px;
+    border-radius:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:10px;
+}
+
+/* TOGGLE SWITCH */
+.switch{
+    position:relative;
+    width:45px;
+    height:22px;
+}
+
+.switch input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    cursor:pointer;
+    background:#334155;
+    border-radius:20px;
+    top:0; left:0; right:0; bottom:0;
+    transition:0.3s;
+}
+
+.slider:before{
+    position:absolute;
+    content:"";
+    height:18px;
+    width:18px;
+    left:2px;
+    bottom:2px;
+    background:white;
+    border-radius:50%;
+    transition:0.3s;
+}
+
+input:checked + .slider{
+    background:#22c55e;
+}
+
+input:checked + .slider:before{
+    transform:translateX(22px);
+}
+
+/* SELECT */
+select{
+    background:#0f172a;
+    color:white;
+    border:none;
+    padding:8px;
+    border-radius:8px;
+}
+
+/* BUTTON */
+button{
+    padding:8px 12px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#22c55e;
+    font-weight:600;
+}
+
+.save-btn{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="logo">SKILL<span>ORBIT</span></div>
+    <a href="More.html" class="back-btn">← Back</a>
+</div>
+
+<div class="container">
+
+    <!-- DISPLAY -->
+    <div class="section">
+        <h2>🖥️ Display</h2>
+
+        <div class="item">
+            <div>
+                <strong>Font Size</strong><br>
+                <small>Adjust text size</small>
+            </div>
+            <select id="fontSize">
+                <option value="14px">Small</option>
+                <option value="16px" selected>Default</option>
+                <option value="18px">Large</option>
+            </select>
+        </div>
+
+        <div class="item">
+            <div>
+                <strong>Theme</strong><br>
+                <small>Light / Dark mode</small>
+            </div>
+            <select id="theme">
+                <option value="dark" selected>Dark</option>
+                <option value="light">Light</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="section">
+        <h2>🎥 Video & Learning</h2>
+
+        <div class="item">
+            <div>
+                <strong>Auto Play</strong><br>
+                <small>Play next video automatically</small>
+            </div>
+            <label class="switch">
+                <input type="checkbox" id="autoplay">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="item">
+            <div>
+                <strong>Subtitles</strong><br>
+                <small>Show captions in videos</small>
+            </div>
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- DATA -->
+    <div class="section">
+        <h2>📡 Data & Storage</h2>
+
+        <div class="item">
+            <div>
+                <strong>Data Saver</strong><br>
+                <small>Reduce data usage</small>
+            </div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="item">
+            <div>
+                <strong>Clear Cache</strong><br>
+                <small>Free up storage</small>
+            </div>
+            <button onclick="clearCache()">Clear</button>
+        </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="section">
+        <h2>🔔 Notifications</h2>
+
+        <div class="item">
+            <div>
+                <strong>Notification Sound</strong><br>
+                <small>Enable sound alerts</small>
+            </div>
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="item">
+            <div>
+                <strong>Vibration</strong><br>
+                <small>Vibrate on alerts</small>
+            </div>
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <!-- SYSTEM -->
+    <div class="section">
+        <h2>🧩 System</h2>
+
+        <div class="item">
+            <div>
+                <strong>Reset Settings</strong><br>
+                <small>Restore default settings</small>
+            </div>
+            <button onclick="resetSettings()">Reset</button>
+        </div>
+    </div>
+
+    <button class="save-btn">Save Settings</button>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+// Font size
+document.getElementById("fontSize").addEventListener("change", function(){
+    document.body.style.fontSize = this.value;
+});
+
+// Theme
+document.getElementById("theme").addEventListener("change", function(){
+    if(this.value === "light"){
+        document.body.style.background = "#f1f5f9";
+       // document.body.style.color = "#000";
+    } else {
+        document.body.style.background = "#0f172a";
+        document.body.style.color = "#e2e8f0";
+    }
+});
+
+// Clear cache
+function clearCache(){
+    alert("Cache cleared!");
+}
+
+// Reset
+function resetSettings(){
+    location.reload();
+}
+</script>
+
+</body>
+</html>

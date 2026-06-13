@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Pro Project Hub</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI;
+}
+
+body{
+  background:#0b120e;
+  color:#fff;
+}
+
+/* LAYOUT */
+.container{
+  display:flex;
+  height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:22%;
+  background:#0f1a14;
+  border-right:2px solid #1f3a2b;
+  padding:20px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#00ff88;
+}
+
+.tag{
+  font-size:12px;
+  color:#888;
+  margin-bottom:25px;
+}
+
+.nav a{
+  display:block;
+  padding:12px;
+  margin:8px 0;
+  color:#cfd8d3;
+  text-decoration:none;
+  border-radius:8px;
+}
+
+.nav a:hover{
+  background:#00ff88;
+  color:#000;
+}
+
+/* MAIN */
+.main{
+  width:78%;
+  padding:25px;
+  overflow-y:auto;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.search{
+  padding:10px 15px;
+  border-radius:8px;
+  border:1px solid #1f3a2b;
+  background:#111a14;
+  color:#fff;
+  width:250px;
+}
+
+/* AI BOX */
+.ai-box{
+  margin-top:10px;
+  padding:10px;
+  border-left:3px solid #00ff88;
+  background:#0f1a14;
+  font-size:12px;
+  color:#aaa;
+}
+
+/* STATS */
+.stats{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.stat{
+  background:#111a14;
+  border:1px solid #1f3a2b;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+}
+
+.stat h3{
+  color:#00ff88;
+}
+
+/* FILTERS */
+.filters{
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.filters button{
+  padding:8px 12px;
+  border-radius:6px;
+  border:1px solid #1f3a2b;
+  background:#111a14;
+  color:#fff;
+  cursor:pointer;
+}
+
+.filters button:hover{
+  background:#00ff88;
+  color:#000;
+}
+
+/* GRID */
+.grid{
+  margin-top:25px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+}
+
+/* CARD */
+.card{
+  background:#111a14;
+  border:1px solid #1f3a2b;
+  padding:20px;
+  border-radius:12px;
+  transition:0.3s;
+  position:relative;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:#00ff88;
+}
+
+/* BADGE */
+.badge{
+  font-size:11px;
+  padding:4px 8px;
+  background:#00ff88;
+  color:#000;
+  border-radius:5px;
+  display:inline-block;
+  margin-top:5px;
+}
+
+/* PROGRESS */
+.progress{
+  height:8px;
+  background:#1f3a2b;
+  border-radius:10px;
+  margin-top:10px;
+  cursor:pointer;
+}
+
+.bar{
+  height:100%;
+  background:#00ff88;
+  width:50%;
+}
+
+/* BUTTON */
+.btn{
+  margin-top:10px;
+  padding:6px 10px;
+  background:#00ff88;
+  color:#000;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* STAR */
+.star{
+  position:absolute;
+  bottom:10px;
+  right:10px;
+  cursor:pointer;
+  font-size:18px;
+}
+
+/* PIN */
+.pin{
+  position:absolute;
+  top:10px;
+  right:10px;
+  cursor:pointer;
+}
+
+/* NOTIFICATION */
+#notify{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#00ff88;
+  color:#000;
+  padding:10px 15px;
+  border-radius:8px;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="notify"></div>
+
+<div class="container">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="logo">SkillOrbit</div>
+  <div class="tag">Project Hub</div>
+
+  <div class="nav">
+    <a href="dashboard.html">📊 Dashboard</a> 
+    <a href="Earning_page.html">💰 Earnings</a>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="header">
+  <h2>My Projects</h2>
+  <input class="search" id="search" placeholder="Search projects...">
+</div>
+
+<div class="ai-box">
+🧠 AI Suggestion: Focus on 1 high priority project daily for faster growth.
+</div>
+
+<div class="stats">
+  <div class="stat"><h3>6</h3><p>Total</p></div>
+  <div class="stat"><h3>3</h3><p>Active</p></div>
+  <div class="stat"><h3>2</h3><p>Completed</p></div>
+  <div class="stat"><h3>1</h3><p>Stuck</p></div>
+</div>
+
+<div class="filters">
+  <button onclick="filter('all')">All</button>
+  <button onclick="filter('web')">Web</button>
+  <button onclick="filter('app')">App</button>
+  <button onclick="filter('dsa')">DSA</button>
+  <button onclick="filter('freelance')">Freelance</button>
+</div>
+
+<div class="grid" id="grid">
+
+<div class="card" data-type="web">
+  <h3>Portfolio Website</h3>
+  <span class="badge">Web</span>
+  <div class="progress" onclick="grow(this)"><div class="bar"></div></div>
+  <button class="btn" onclick="notify('Opened Portfolio')">Open</button>
+  <span class="pin" onclick="pin(this)">📌</span>
+  <span class="star" onclick="fav(this)">☆</span>
+</div>
+
+<div class="card" data-type="dsa">
+  <h3>ICPC Practice</h3>
+  <span class="badge">DSA</span>
+  <div class="progress" onclick="grow(this)"><div class="bar"></div></div>
+  <button class="btn">Open</button>
+  <span class="pin">📌</span>
+  <span class="star" onclick="fav(this)">☆</span>
+</div>
+
+<div class="card" data-type="freelance">
+  <h3>Freelance Dashboard</h3>
+  <span class="badge">Freelance</span>
+  <div class="progress" onclick="grow(this)"><div class="bar"></div></div>
+  <button class="btn">Open</button>
+  <span class="pin">📌</span>
+  <span class="star" onclick="fav(this)">☆</span>
+</div>
+
+<div class="card" data-type="web">
+  <h3>E-commerce UI</h3>
+  <span class="badge">Web</span>
+  <div class="progress" onclick="grow(this)"><div class="bar"></div></div>
+  <button class="btn">Open</button>
+  <span class="pin">📌</span>
+  <span class="star" onclick="fav(this)">☆</span>
+</div>
+
+<div class="card" data-type="app">
+  <h3>Chat App UI</h3>
+  <span class="badge">App</span>
+  <div class="progress" onclick="grow(this)"><div class="bar"></div></div>
+  <button class="btn">Open</button>
+  <span class="pin">📌</span>
+  <span class="star" onclick="fav(this)">☆</span>
+</div>
+
+<div class="card" data-type="dsa">
+  <h3>Sorting Visualizer</h3>
+  <span class="badge">DSA</span>
+  <div class="progress" onclick="grow(this)"><div class="bar"></div></div>
+  <button class="btn">Open</button>
+  <span class="pin">📌</span>
+  <span class="star" onclick="fav(this)">☆</span>
+</div>
+
+</div>
+
+</div>
+</div>
+
+<script>
+
+function notify(msg){
+  let n=document.getElementById("notify");
+  n.innerText=msg;
+  n.style.display="block";
+  setTimeout(()=>n.style.display="none",1500);
+}
+
+document.getElementById("search").addEventListener("input",function(){
+  let val=this.value.toLowerCase();
+  document.querySelectorAll(".card").forEach(c=>{
+    c.style.display=c.innerText.toLowerCase().includes(val)?"block":"none";
+  });
+});
+
+function filter(type){
+  document.querySelectorAll(".card").forEach(c=>{
+    c.style.display=(type==="all"||c.dataset.type===type)?"block":"none";
+  });
+}
+
+function grow(el){
+  let bar=el.querySelector(".bar");
+  let w=parseInt(bar.style.width||"0");
+  if(w<100){
+    w+=10;
+    bar.style.width=w+"%";
+    notify("Progress +10%");
+  }
+}
+
+function fav(el){
+  el.innerText = el.innerText==="☆"?"★":"☆";
+}
+
+function pin(el){
+  el.closest(".card").style.border="2px solid #00ff88";
+}
+
+</script>
+
+</body>
+</html>

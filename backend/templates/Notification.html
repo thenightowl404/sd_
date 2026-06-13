@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Notifications</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI;
+}
+
+body{
+  background:#0b120e;
+  color:#fff;
+}
+
+/* HEADER */
+.header{
+  background:#0f1f14;
+  padding:16px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #1f3b2a;
+}
+
+.header h2{
+  color:#00ff88;
+  font-size:20px;
+}
+
+/* BUTTONS */
+.btn-group{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.btn{
+  text-decoration:none;
+  background:#142a1c;
+  color:#fff;
+  padding:8px 12px;
+  border-radius:6px;
+  font-size:13px;
+  border:1px solid #1f3b2a;
+  transition:0.2s;
+}
+
+.btn:hover{
+  background:#00ff88;
+  color:#000;
+}
+
+.clear-btn{
+  background:#00ff88;
+  color:#000;
+  border:none;
+  padding:8px 12px;
+  border-radius:6px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.clear-btn:hover{
+  background:#00cc6a;
+}
+.clear-btn{
+  display:inline-block;
+}
+
+/* CONTAINER */
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+  flex-wrap:wrap;
+}
+
+.tab{
+  padding:8px 14px;
+  border-radius:20px;
+  background:#142a1c;
+  color:#ccc;
+  cursor:pointer;
+  font-size:13px;
+  border:1px solid #1f3b2a;
+}
+
+.tab.active{
+  background:#00ff88;
+  color:#000;
+  font-weight:bold;
+}
+
+/* CARD */
+.card{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  background:#0f1f14;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:12px;
+  border-left:4px solid #00ff88;
+}
+
+.card:hover{
+  transform:scale(1.01);
+}
+
+.left{
+  display:flex;
+  gap:12px;
+}
+
+.icon{
+  width:40px;
+  height:40px;
+  background:#142a1c;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  font-size:18px;
+}
+
+.text p{
+  font-size:14px;
+}
+
+.meta{
+  font-size:12px;
+  color:#aaa;
+  margin-top:4px;
+}
+
+.right{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.small-btn{
+  background:#142a1c;
+  border:none;
+  color:#fff;
+  padding:6px 10px;
+  border-radius:6px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.small-btn:hover{
+  background:#00ff88;
+  color:#000;
+}
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:60px 20px;
+  color:#888;
+}
+
+.empty-icon{
+  font-size:50px;
+}
+
+/* READ */
+.read{
+  opacity:0.5;
+  border-left:4px solid #555;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h2>🔔 Notifications</h2>
+
+  <div class="btn-group">
+    <a href="{% url 'home' %}" class="btn">🏠 Dashboard</a>
+    <a href="{% url 'clear_notifications' %}" class="clear-btn">
+    Clear All
+</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="tabs">
+  <a href="?filter=all" class="tab {% if current_filter == 'all' %}active{% endif %}">All</a>
+
+<a href="?filter=unread" class="tab {% if current_filter == 'unread' %}active{% endif %}">Unread</a>
+
+<a href="?filter=system" class="tab {% if current_filter == 'system' %}active{% endif %}">System</a>
+
+<a href="?filter=course" class="tab {% if current_filter == 'course' %}active{% endif %}">Courses</a>
+  <a href="?filter=unread" class="tab">Unread</a>
+  <a href="?filter=system" class="tab">System</a>
+  <a href="?filter=course" class="tab">Courses</a>
+</div>
+
+  <div id="list">
+
+{% for n in notifications %}
+
+  <div class="card {% if n.read %}read{% endif %}">
+    
+    <div class="left">
+      <div class="icon">{{ n.icon }}</div>
+
+      <div class="text">
+        <p>{{ n.text }}</p>
+        <div class="meta">{{ n.created_at }}</div>
+      </div>
+    </div>
+
+    <div class="right">
+      {% if not n.read %}
+        <a href="{% url 'mark_read' n.id %}" class="small-btn">Mark Read</a>
+      {% endif %}
+    </div>
+
+  </div>
+
+{% empty %}
+
+  <div class="empty"><i class="fas fa-lira-sign    "></i>
+    <div class="empty-icon">📭</div>
+    <p>No notifications</p>
+  </div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+</body>
+</html>

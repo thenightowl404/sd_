@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Earnings</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Segoe UI;
+}
+
+body{
+  background:#0b120e;
+  color:#fff;
+}
+
+/* TOP BAR */
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 25px;
+  background:#0f1a14;
+  border-bottom:2px solid #1f3a2b;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:bold;
+  color:#00ff88;
+}
+
+.btn{
+  padding:8px 14px;
+  background:#00ff88;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  color:#000;
+  text-decoration:none;
+  font-weight:500;
+}
+
+/* MAIN */
+.main{
+  padding:25px;
+}
+
+/* HEADER */
+.header{
+  margin-top:10px;
+}
+
+/* CARD */
+.card{
+  margin-top:20px;
+  background:#111a14;
+  border:1px solid #1f3a2b;
+  padding:20px;
+  border-radius:12px;
+}
+
+.balance{
+  font-size:28px;
+  color:#00ff88;
+  margin-top:10px;
+}
+
+/* GRID */
+.grid{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+}
+
+.stat{
+  background:#111a14;
+  border:1px solid #1f3a2b;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+}
+
+.stat h3{
+  color:#00ff88;
+}
+
+/* TABLE */
+.table{
+  margin-top:20px;
+  width:100%;
+  border-collapse:collapse;
+}
+
+.table th, .table td{
+  padding:10px;
+  border-bottom:1px solid #1f3a2b;
+  text-align:left;
+  font-size:14px;
+}
+
+.table th{
+  color:#00ff88;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="logo">SkillOrbit</div>
+  <a class="btn" href="dashboard.html">📊 Dashboard</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="header">
+  <h2>Earnings Overview</h2>
+</div>
+
+<div class="card">
+  <h3>Total Balance</h3>
+  <div class="balance">$120.50</div>
+  <button class="btn" onclick="alert('Withdrawal Requested')">Withdraw</button>
+</div>
+
+<div class="grid">
+  <div class="stat"><h3>$40</h3><p>This Month</p></div>
+  <div class="stat"><h3>$15</h3><p>This Week</p></div>
+  <div class="stat"><h3>8</h3><p>Completed Tasks</p></div>
+  <div class="stat"><h3>3</h3><p>Pending Payouts</p></div>
+</div>
+
+<div class="card">
+  <h3>Transaction History</h3>
+  <table class="table">
+    <tr><th>Task</th><th>Date</th><th>Amount</th></tr>
+    <tr><td>Portfolio Website</td><td>01 May</td><td>$20</td></tr>
+    <tr><td>ICPC Practice</td><td>28 Apr</td><td>$10</td></tr>
+    <tr><td>Freelance UI</td><td>25 Apr</td><td>$30</td></tr>
+  </table>
+</div>
+
+</div>
+
+</body>
+</html>

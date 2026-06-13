@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillOrbit | HelpDesk Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2ecc71; 
+            --primary-glow: rgba(46, 204, 113, 0.2);
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --border: #e2e8f0;
+            --header-h: 85px;
+        }
+
+        body.dark-mode {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --border: #334155;
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', sans-serif; transition: all 0.2s ease; }
+        body { background: var(--bg); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            height: var(--header-h);
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            z-index: 1000;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 12px; }
+        .logo-circle { 
+            width: 45px; height: 45px; border-radius: 12px; 
+            background: linear-gradient(135deg, #2ecc71, #27ae60); 
+            display: flex; align-items: center; justify-content: center; color: white;
+            font-size: 1.2rem; box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .nav-right-toolbar {
+            display: flex; align-items: center; gap: 5px;
+            background: var(--bg); padding: 5px; border-radius: 50px; border: 1px solid var(--border);
+        }
+
+        .toolbar-item {
+            padding: 10px 18px; border-radius: 40px; font-size: 0.8rem; font-weight: 700;
+            color: var(--text-sub); cursor: pointer; display: flex; align-items: center; gap: 8px;
+        }
+
+        .toolbar-item.active { background: var(--primary); color: white; box-shadow: 0 4px 10px var(--primary-glow); }
+
+        /* --- CONTENT SCROLLING --- */
+        .main-wrapper { flex: 1; padding: 2rem 3rem; overflow-y: auto; max-width: 1400px; margin: 0 auto; width: 100%; }
+        .view-section { display: none; animation: slideUp 0.4s ease-out; }
+        .view-section.active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- CARDS & LISTS --- */
+        .glass-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            padding: 25px; border-radius: 20px; margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .tag { font-size: 0.65rem; font-weight: 800; color: var(--primary); background: var(--primary-glow); padding: 4px 10px; border-radius: 6px; text-transform: uppercase; margin-right: 5px; }
+        .btn-action { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 10px; font-weight: 600; cursor: pointer; }
+        
+        .expert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .status-online { color: #2ecc71; font-size: 0.75rem; font-weight: bold; }
+        
+        .list-item { display: flex; align-items: center; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--border); }
+        .list-item:last-child { border-bottom: none; }
+        
+        .progress-bar { height: 8px; background: var(--border); border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); border-radius: 10px; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+    </style>
+</head>
+<body class="dark-mode">
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo-circle"><i class="fas fa-layer-group"></i></div>
+            <div>
+                <h2 style="font-size: 1.4rem; letter-spacing: -1px;">SKILL<span style="color: var(--primary);">ORBIT</span></h2>
+                <p style="font-size: 0.6rem; font-weight: 800; color: var(--text-sub); letter-spacing: 2px;">STUDENT CENTER</p>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="nav-right-toolbar">
+                <div class="toolbar-item active" onclick="showView('v-discussions', this)"><i class="fas fa-comments"></i> Feed</div>
+                <div class="toolbar-item" onclick="showView('v-trending', this)"><i class="fas fa-bolt"></i> Trending</div>
+                <div class="toolbar-item" onclick="showView('v-solved', this)"><i class="fas fa-check-circle"></i> Solved</div>
+                <div class="toolbar-item" onclick="showView('v-experts', this)"><i class="fas fa-user-shield"></i> Mentors</div>
+                <div class="toolbar-item" onclick="showView('v-docs', this)"><i class="fas fa-book"></i> Library</div>
+                <div class="toolbar-item" onclick="showView('v-bookmarks', this)"><i class="fas fa-bookmark"></i> Saved</div>
+            </div>
+            <i class="fas fa-moon" style="cursor:pointer" onclick="toggleDarkMode()"></i>
+            <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white;">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        
+        <div id="v-discussions" class="view-section active">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                <h1>Recent Discussions</h1>
+                <button class="btn-action">+ Post New Query</button>
+            </div>
+            
+            <div class="glass-card">
+                <div style="margin-bottom: 10px;"><span class="tag">Web Dev</span><span class="tag" style="background:rgba(52,152,219,0.1); color:#3498db">JavaScript</span></div>
+                <h3>SkillOrbit: LocalStorage data clearing on Browser Refresh?</h3>
+                <p style="color: var(--text-sub); margin-bottom: 15px;">I'm building the course enrollment logic, but whenever I refresh, the student's progress resets. Is my JSON.stringify logic wrong?</p>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                    <span style="color: var(--primary);"><b>@Sarker_Dev</b> • 14 replies</span>
+                    <span style="color: var(--text-sub);">Active 5m ago</span>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div style="margin-bottom: 10px;"><span class="tag">C++ / Qt</span></div>
+                <h3>Transferring console logic to Qt Graphical Registration form</h3>
+                <p style="color: var(--text-sub); margin-bottom: 15px;">I have the `Registration` class ready in C++, but I am confused about how to connect `QLineEdit` text to the class constructor.</p>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                    <span style="color: var(--primary);"><b>@Student_Coder</b> • 8 replies</span>
+                    <span style="color: var(--text-sub);">Active 1h ago</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="v-trending" class="view-section">
+            <h1 style="margin-bottom: 2rem;">🔥 Trending Conversations</h1>
+            <div class="glass-card">
+                <div class="list-item">
+                    <h2 style="color: var(--primary); margin-right: 20px;">01</h2>
+                    <div style="flex: 1;">
+                        <h4>bKash Sandbox API Handshake Issues</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Many users reporting '401 Unauthorized' on payment simulations.</p>
+                    </div>
+                    <span class="tag">98+ Active</span>
+                </div>
+                <div class="list-item">
+                    <h2 style="color: var(--primary); margin-right: 20px;">02</h2>
+                    <div style="flex: 1;">
+                        <h4>NI Ultiboard 2026 Workspace Optimization</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">How to fix the empty workspace lag for PCB design.</p>
+                    </div>
+                    <span class="tag">45 Active</span>
+                </div>
+                <div class="list-item">
+                    <h2 style="color: var(--primary); margin-right: 20px;">03</h2>
+                    <div style="flex: 1;">
+                        <h4>Dark Mode Theme Persistence Patterns</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-sub);">Best ways to prevent white flickering on page load.</p>
+                    </div>
+                    <span class="tag">30 Active</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="v-solved" class="view-section">
+            <h1 style="margin-bottom: 2rem;">✅ Verified Solutions</h1>
+            <div class="glass-card">
+                <h4>Q: How to fix empty workspace in NI Ultiboard?</h4>
+                <p style="background: var(--bg); padding: 15px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; border-left: 4px solid var(--primary);">
+                    <b>Verified Answer:</b> Go to <i>Options > Global Preferences > User Interface</i> and click "Reset to Default Layout". This clears the corrupted UI cache from the latest update.
+                </p>
+                <span style="font-size: 0.8rem; color: var(--text-sub);">Solved by: <b>Expert_Engineer</b></span>
+            </div>
+            <div class="glass-card">
+                <h4>Q: C++ Operator Overloading for Registration Objects?</h4>
+                <p style="background: var(--bg); padding: 15px; border-radius: 12px; margin: 15px 0; font-size: 0.9rem; border-left: 4px solid var(--primary);">
+                    <b>Verified Answer:</b> Ensure you are returning a reference to the object for chaining (e.g., <code>Registration& operator=</code>). Check the sample code in the Library section.
+                </p>
+            </div>
+        </div>
+
+        <div id="v-experts" class="view-section">
+            <h1 style="margin-bottom: 2rem;">Verified SkillOrbit Mentors</h1>
+            <div class="expert-grid">
+                <div class="glass-card" style="text-align: center;">
+                    <div style="width: 70px; height: 70px; background: var(--bg); border-radius: 20px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: var(--primary); border: 2px solid var(--primary);">
+                        <i class="fas fa-code-branch" style="font-size: 1.5rem;"></i>
+                    </div>
+                    <h3>Dr. Adnan Karim</h3>
+                    <p style="font-size: 0.8rem; color: var(--primary); font-weight: 800; margin-bottom: 10px;">Backend & C++ Architect</p>
+                    <p class="status-online"><i class="fas fa-circle"></i> Online Now</p>
+                    <button class="btn-action" style="width: 100%; margin-top: 15px;">Message</button>
+                </div>
+                <div class="glass-card" style="text-align: center;">
+                    <div style="width: 70px; height: 70px; background: var(--bg); border-radius: 20px; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; color: #3498db; border: 2px solid #3498db;">
+                        <i class="fas fa-paint-brush" style="font-size: 1.5rem;"></i>
+                    </div>
+                    <h3>Sarah Jenkins</h3>
+                    <p style="font-size: 0.8rem; color: #3498db; font-weight: 800; margin-bottom: 10px;">UI/UX Specialist</p>
+                    <p style="font-size: 0.75rem; color: var(--text-sub);">Available in 2h</p>
+                    <button class="btn-action" style="width: 100%; margin-top: 15px; background:#3498db;">Schedule Call</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="v-docs" class="view-section">
+            <h1 style="margin-bottom: 2rem;">Resource Library</h1>
+            <div class="glass-card">
+                <h3>Your Learning Path</h3>
+                <div style="margin-top: 20px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                        <span>SkillOrbit Web Platform Integration</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem;">
+                        <span>C++ Graphical UI (Qt) Masterclass</span>
+                        <span>35%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: 35%;"></div></div>
+                </div>
+            </div>
+            <div class="glass-card">
+                <h4>Documentation Modules</h4>
+                <div class="list-item"><i class="fas fa-file-pdf"></i> SkillOrbit API Reference (v2026)</div>
+                <div class="list-item"><i class="fas fa-file-code"></i> NI Multisim PCB Export Guide</div>
+                <div class="list-item"><i class="fas fa-video"></i> Setting up Qt Kits for C++ Projects</div>
+            </div>
+        </div>
+
+        <div id="v-bookmarks" class="view-section">
+            <h1 style="margin-bottom: 2rem;">Saved Resources</h1>
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <h4>Colorful UI Color Palette (2026 Trends)</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 5px;">Saved from: Web Design Forum</p>
+                    </div>
+                    <i class="fas fa-bookmark" style="color: var(--primary);"></i>
+                </div>
+            </div>
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <h4>Time Complexity of Linked List Insertions</h4>
+                        <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 5px;">Saved from: CS Fundamentals</p>
+                    </div>
+                    <i class="fas fa-bookmark" style="color: var(--primary);"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function showView(viewId, element) {
+            document.querySelectorAll('.toolbar-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById(viewId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

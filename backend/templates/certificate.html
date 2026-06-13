@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Certificates</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  background:#0f172a;
+  color:#e2e8f0;
+}
+
+/* HEADER (same theme as profile/settings) */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:20px 5%;
+  background:#1e293b;
+  position:sticky;
+  top:0;
+}
+
+.navbar h2{
+  font-size:1.5rem;
+  font-weight:bold;
+}
+
+.navbar span{
+  color:#22c55e;
+}
+
+.navbar a{
+  text-decoration:none;
+  background:#22c55e;
+  color:#0f172a;
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:600;
+}
+
+/* CONTAINER */
+.container{
+  padding:25px 5%;
+}
+
+/* CARD (same as profile/settings cards) */
+.card{
+  background:#1e293b;
+  padding:20px;
+  border-radius:12px;
+  margin-bottom:15px;
+  border:1px solid #334155;
+}
+
+/* TITLES */
+.card h3{
+  color:#22c55e;
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#94a3b8;
+}
+
+/* BUTTON */
+.btn{
+  display:inline-block;
+  margin-top:12px;
+  padding:10px 14px;
+  background:#22c55e;
+  color:#0f172a;
+  font-weight:600;
+  border-radius:8px;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+/* STEPS */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:12px;
+  margin-top:15px;
+}
+
+.step{
+  background:#0f172a;
+  padding:15px;
+  border-radius:10px;
+  border:1px solid #334155;
+  transition:0.3s;
+}
+
+.step:hover{
+  border-color:#22c55e;
+  transform:translateY(-3px);
+}
+
+.step span{
+  color:#22c55e;
+  font-weight:bold;
+}
+
+/* PROGRESS */
+.progress{
+  width:100%;
+  height:10px;
+  background:#0f172a;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:10px;
+  border:1px solid #334155;
+}
+
+.bar{
+  height:100%;
+  width:35%;
+  background:#22c55e;
+  transition:0.5s;
+}
+
+/* CERTIFICATES GRID */
+.cert-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:12px;
+  margin-top:15px;
+}
+
+.cert{
+  background:#0f172a;
+  border:1px solid #334155;
+  padding:15px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.3s;
+  position:relative;
+}
+
+.cert:hover{
+  transform:translateY(-4px);
+  border-color:#22c55e;
+}
+
+.locked{
+  opacity:0.5;
+}
+
+.badge{
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-size:11px;
+  background:#22c55e;
+  color:#0f172a;
+  padding:3px 8px;
+  border-radius:6px;
+}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background:#1e293b;
+  border:1px solid #22c55e;
+  padding:20px;
+  border-radius:12px;
+  display:none;
+  text-align:center;
+  width:300px;
+}
+
+.popup h2{
+  color:#22c55e;
+}
+
+.popup p{
+  color:#94a3b8;
+  margin-top:5px;
+}
+
+.close{
+  margin-top:15px;
+  display:inline-block;
+  background:#22c55e;
+  color:#0f172a;
+  padding:8px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <h2>Skill<span>Orbit</span></h2>
+  <a href="More.html">Back</a>
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="card">
+    <h3>🎓 Certification Hub</h3>
+    <p>Complete courses to unlock verified certificates and build your portfolio.</p>
+
+    <div class="progress">
+      <div class="bar" id="progressBar"></div>
+    </div>
+
+    <a class="btn" href="courses.html">Start Learning</a>
+  </div>
+
+  <!-- STEPS -->
+  <div class="card">
+    <h3>📌 How It Works</h3>
+
+    <div class="steps">
+      <div class="step"><span>1</span><p>Enroll in course</p></div>
+      <div class="step"><span>2</span><p>Complete modules</p></div>
+      <div class="step"><span>3</span><p>Pass assessment</p></div>
+      <div class="step"><span>4</span><p>Get certificate</p></div>
+    </div>
+  </div>
+
+  <!-- CERTIFICATES -->
+  <div class="card">
+    <h3>🏆 Your Certificates</h3>
+
+    <div class="cert-grid">
+
+      <div class="cert" onclick="openCert('HTML Basics', true)">
+        <div class="badge">Unlocked</div>
+        <h4>HTML Basics</h4>
+        <p>Structure of web pages</p>
+      </div>
+
+      <div class="cert locked" onclick="openCert('CSS Mastery', false)">
+        <div class="badge">Locked</div>
+        <h4>CSS Mastery</h4>
+        <p>Styling & layouts</p>
+      </div>
+
+      <div class="cert locked" onclick="openCert('JavaScript', false)">
+        <div class="badge">Locked</div>
+        <h4>JavaScript</h4>
+        <p>Logic & interactivity</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <h2 id="title"></h2>
+  <p id="msg"></p>
+  <div class="close" onclick="closePopup()">Close</div>
+</div>
+
+<script>
+// progress
+document.getElementById("progressBar").style.width = "35%";
+
+// open certificate
+function openCert(name, unlocked){
+  document.getElementById("popup").style.display = "block";
+  document.getElementById("title").innerText = name;
+
+  if(unlocked){
+    document.getElementById("msg").innerText = "🎉 Certificate unlocked! You can download it after completion.";
+  } else {
+    document.getElementById("msg").innerText = "🔒 Locked. Complete the course to unlock.";
+  }
+}
+
+// close popup
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>

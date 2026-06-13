@@ -1,0 +1,244 @@
+instructor-login.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Instructor Login</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  height:100vh;
+  display:flex;
+  background:radial-gradient(circle at top,#0b1220,#020617);
+  overflow:hidden;
+}
+
+/* TOAST */
+#toast{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:12px 20px;
+  border-radius:10px;
+  color:#fff;
+  font-weight:500;
+  display:none;
+  z-index:9999;
+  min-width:250px;
+  text-align:center;
+}
+
+.success{background:#16a34a;}
+.error{background:#dc2626;}
+
+/* LEFT */
+.left{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  padding:50px;
+  position:relative;
+  background:linear-gradient(135deg,rgba(2,6,23,0.9),rgba(22,163,74,0.2));
+}
+
+.home-btn{
+  position:absolute;
+  top:20px;
+  left:20px;
+  padding:8px 14px;
+  background:#0f172a;
+  border:1px solid #22c55e;
+  color:#22c55e;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.home-btn:hover{
+  background:#22c55e;
+  color:#000;
+}
+
+.left h1{
+  font-size:2.6rem;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+.left p{
+  max-width:420px;
+  text-align:center;
+  color:#c7f9cc;
+  line-height:1.6;
+}
+
+.quote{
+  margin-top:25px;
+  font-style:italic;
+  color:#86efac;
+}
+
+/* RIGHT */
+.right{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.container{
+  width:380px;
+  background:rgba(30,41,59,0.75);
+  backdrop-filter:blur(15px);
+  border:1px solid rgba(34,197,94,0.4);
+  border-radius:18px;
+  padding:28px;
+}
+
+h2{
+  text-align:center;
+  color:#22c55e;
+  margin-bottom:20px;
+}
+
+.input{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:none;
+  border-radius:10px;
+  background:#0f172a;
+  color:white;
+  outline:none;
+}
+
+.btn{
+  width:100%;
+  padding:12px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  color:white;
+  margin-top:10px;
+}
+
+.switch{
+  text-align:center;
+  margin-top:15px;
+  color:#94a3b8;
+}
+
+.shake{animation:shake 0.3s;}
+
+@keyframes shake{
+  0%{transform:translateX(0)}
+  25%{transform:translateX(-5px)}
+  50%{transform:translateX(5px)}
+  75%{transform:translateX(-5px)}
+  100%{transform:translateX(0)}
+}
+</style>
+</head>
+
+<body>
+
+<div id="toast"></div>
+
+<!-- LEFT SIDE -->
+<div class="left">
+
+  <button class="home-btn" onclick="goHome()">
+    <i class="fas fa-home"></i> Home
+  </button>
+
+  <h1>Instructor Access</h1>
+  <p>Login to manage courses, students, quizzes and earnings.</p>
+  <div class="quote">"Teach. Build. Inspire."</div>
+
+</div>
+
+<!-- RIGHT SIDE -->
+<div class="right">
+  <div class="container" id="box">
+
+    <h2>Instructor Login</h2>
+
+    <input class="input" id="email" type="text" placeholder="Instructor Email">
+    <input class="input" id="password" type="password" placeholder="Password">
+
+    <button class="btn" onclick="handleAuth()">Login</button>
+
+    <div class="switch">
+      Only authorized instructors allowed
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+function showToast(msg,type){
+  let toast = document.getElementById("toast");
+  toast.innerText = msg;
+  toast.className = type;
+  toast.style.display = "block";
+
+  setTimeout(()=>{
+    toast.style.display = "none";
+  },2000);
+}
+
+function goHome(){
+  window.location.href = "index.html";
+}
+
+function handleAuth(){
+  let email = document.getElementById("email").value.trim();
+  let pass = document.getElementById("password").value.trim();
+  let box = document.getElementById("box");
+
+  if(email === "" || pass === ""){
+    box.classList.add("shake");
+    setTimeout(()=>box.classList.remove("shake"),300);
+    showToast("Please fill all fields","error");
+    return;
+  }
+
+  // ✅ ACCEPT BOTH FORMATS (SAFE FIX)
+  if(
+      (email === "instructor" && pass === "1234") ||
+      (email === "instructor@skillorbit.com" && pass === "1234")
+  ){
+    showToast("Login Successful 🚀 Redirecting...","success");
+
+    setTimeout(()=>{
+      window.location.href = "instructor_dashboard.html";
+    },1200);
+
+  } else {
+    box.classList.add("shake");
+    setTimeout(()=>box.classList.remove("shake"),300);
+    showToast("Wrong Credentials","error");
+  }
+}
+
+</script>
+
+</body>
+</html>

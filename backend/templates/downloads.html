@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkillOrbit - Downloads</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:#e2e8f0;
+}
+
+/* HEADER */
+.header{
+    padding:20px 5%;
+    background:#1e293b;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:1.5rem;
+    font-weight:bold;
+}
+.logo span{ color:#22c55e; }
+
+.back-btn{
+    background:#22c55e;
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    color:#0f172a;
+    font-weight:600;
+}
+
+/* SEARCH */
+.search{
+    padding:15px 5%;
+}
+
+.search input{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+    background:#1e293b;
+    color:white;
+    outline:none;
+}
+
+/* CONTAINER */
+.container{
+    padding:10px 5%;
+}
+
+/* CARD */
+.dl-card{
+    background:#1e293b;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.dl-card:hover{
+    transform:translateY(-3px);
+    border:1px solid #22c55e;
+}
+
+.info h3{
+    font-size:1rem;
+}
+
+.info p{
+    font-size:0.8rem;
+    color:#94a3b8;
+}
+
+/* BUTTONS */
+.btns{
+    display:flex;
+    gap:8px;
+}
+
+.btn{
+    border:none;
+    padding:6px 10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.open{
+    background:#22c55e;
+    color:#0f172a;
+}
+
+.del{
+    background:#ef4444;
+    color:white;
+}
+
+/* EMPTY */
+.empty{
+    text-align:center;
+    margin-top:50px;
+    color:#94a3b8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">SKILL<span>ORBIT</span></div>
+    <a href="More.html" class="back-btn">← Back</a>
+</div>
+
+<!-- SEARCH -->
+<div class="search">
+    <input type="text" id="search" placeholder="Search downloads...">
+</div>
+
+<div class="container" id="container"></div>
+
+<script>
+
+// sample downloads
+let downloads = [
+    {title:"HTML Notes", desc:"Complete HTML PDF"},
+    {title:"CSS Cheatsheet", desc:"Flexbox + Grid guide"},
+    {title:"JS Basics", desc:"JavaScript beginner guide"}
+];
+
+// render
+function render(){
+    let box = document.getElementById("container");
+    let search = document.getElementById("search").value.toLowerCase();
+
+    box.innerHTML = "";
+
+    let filtered = downloads.filter(d =>
+        d.title.toLowerCase().includes(search)
+    );
+
+    if(filtered.length === 0){
+        box.innerHTML = `<div class="empty">No downloads found 📭</div>`;
+        return;
+    }
+
+    filtered.forEach((d, i) => {
+        box.innerHTML += `
+        <div class="dl-card">
+            <div class="info">
+                <h3>${d.title}</h3>
+                <p>${d.desc}</p>
+            </div>
+
+            <div class="btns">
+                <button class="btn open" onclick="openFile('${d.title}')">Open</button>
+                <button class="btn del" onclick="removeItem(${i})">Delete</button>
+            </div>
+        </div>
+        `;
+    });
+}
+
+// delete
+function removeItem(i){
+    downloads.splice(i,1);
+    render();
+}
+
+// open
+function openFile(name){
+    alert("Opening: " + name);
+}
+
+// search
+document.getElementById("search").addEventListener("input", render);
+
+render();
+
+</script>
+
+</body>
+</html>
