@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -230,6 +231,6 @@ function toggleEdit(edit){
     document.querySelector(".cancel-btn").style.display = edit ? "block" : "none";
 }
 </script>
-
+<script src="{% static 'js/theme.js' %}"></script>
 </body>
 </html>
