@@ -15,4 +15,8 @@ urlpatterns = [
     path('notifications/', views.notifications, name='notifications'),
     path('notification/read/<int:id>/', views.mark_notification_read, name='mark_read'),
     path('notifications/clear/',views.clear_notifications,name='clear_notifications'),
+    path('settings/', views.settings, name='settings'),
+    path("settings/save/", views.save_settings, name="save_settings"),
+    path("settings/get/", views.get_settings, name="get_settings"),
+    path("help/", views.help, name="help"),
 ]
