@@ -1,5 +1,5 @@
-
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -142,10 +142,11 @@ button{
 
 <body>
 
+{% csrf_token %}
 <!-- HEADER -->
 <div class="header">
     <div class="logo">SKILL<span>ORBIT</span></div>
-    <a href="More.html" class="back-btn">← Back</a>
+    <a href="{% url 'more' %}" class="back-btn">← Back</a>
 </div>
 
 <div class="container">
@@ -199,7 +200,7 @@ button{
                 <small>Show captions in videos</small>
             </div>
             <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" id="subtitles" checked>
                 <span class="slider"></span>
             </label>
         </div>
@@ -215,7 +216,7 @@ button{
                 <small>Reduce data usage</small>
             </div>
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" id="dataSaver">
                 <span class="slider"></span>
             </label>
         </div>
@@ -239,7 +240,7 @@ button{
                 <small>Enable sound alerts</small>
             </div>
             <label class="switch">
-                <input type="checkbox" checked>
+                <input type="checkbox" id="notificationSound" checked>
                 <span class="slider"></span>
             </label>
         </div>
@@ -250,7 +251,7 @@ button{
                 <small>Vibrate on alerts</small>
             </div>
             <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" id="vibration">
                 <span class="slider"></span>
             </label>
         </div>
@@ -269,7 +270,9 @@ button{
         </div>
     </div>
 
-    <button class="save-btn">Save Settings</button>
+    <button class="save-btn" id="saveBtn">
+    Save Settings
+</button>
 
 </div>
 
@@ -281,14 +284,60 @@ document.getElementById("fontSize").addEventListener("change", function(){
 });
 
 // Theme
-document.getElementById("theme").addEventListener("change", function(){
-    if(this.value === "light"){
-        document.body.style.background = "#f1f5f9";
-       // document.body.style.color = "#000";
-    } else {
-        document.body.style.background = "#0f172a";
-        document.body.style.color = "#e2e8f0";
-    }
+function applyTheme(theme) {
+
+    const body = document.body;
+    const header = document.querySelector(".header");
+     const logo = document.querySelector(".logo");
+    const items = document.querySelectorAll(".item");
+    const selects = document.querySelectorAll("select");
+
+    if (theme === "light") {
+
+    body.style.background = "#f8fafc";
+    body.style.color = "#1e293b";
+
+    header.style.background = "#ffffff";
+    logo.style.color = "#1e293b";
+
+    items.forEach(item => {
+        item.style.background = "#ffffff";
+        item.style.color = "#1e293b";
+        item.style.boxShadow = "0 2px 8px rgba(0,0,0,0.1)";
+        item.style.border = "1px solid #e2e8f0";
+    });
+
+    selects.forEach(select => {
+        select.style.background = "#ffffff";
+        select.style.color = "#1e293b";
+        select.style.border = "1px solid #cbd5e1";
+    });
+
+} else {
+
+    body.style.background = "#0f172a";
+    body.style.color = "#e2e8f0";
+
+    header.style.background = "#1e293b";
+    logo.style.color = "#ffffff";
+
+    items.forEach(item => {
+        item.style.background = "#1e293b";
+        item.style.color = "#e2e8f0";
+        item.style.boxShadow = "none";
+        item.style.border = "none";
+    });
+
+    selects.forEach(select => {
+        select.style.background = "#0f172a";
+        select.style.color = "#ffffff";
+        select.style.border = "none";
+    });
+
+}
+}
+document.getElementById("theme").addEventListener("change", function () {
+    applyTheme(this.value);
 });
 
 // Clear cache
@@ -300,7 +349,76 @@ function clearCache(){
 function resetSettings(){
     location.reload();
 }
-</script>
 
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+document.getElementById("saveBtn").addEventListener("click", function () {
+
+    fetch("/settings/save/", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken
+        },
+
+        body: JSON.stringify({
+
+            theme: document.getElementById("theme").value,
+
+            font_size: document.getElementById("fontSize").value,
+
+            autoplay: document.getElementById("autoplay").checked,
+
+            subtitles: document.getElementById("subtitles").checked,
+
+            data_saver: document.getElementById("dataSaver").checked,
+
+            notification_sound: document.getElementById("notificationSound").checked,
+
+            vibration: document.getElementById("vibration").checked
+
+        })
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        alert("Settings saved successfully!");
+
+    });
+
+});
+
+window.onload = function () {
+
+    fetch("/settings/get/")
+    .then(response => response.json())
+    .then(data => {
+
+        // Set the values
+        document.getElementById("theme").value = data.theme;
+        document.getElementById("fontSize").value = data.font_size;
+
+        document.getElementById("autoplay").checked = data.autoplay;
+        document.getElementById("subtitles").checked = data.subtitles;
+        document.getElementById("dataSaver").checked = data.data_saver;
+        document.getElementById("notificationSound").checked = data.notification_sound;
+        document.getElementById("vibration").checked = data.vibration;
+
+        // Apply font size
+        document.body.style.fontSize = data.font_size;
+
+        // Apply theme
+       applyTheme(data.theme);
+
+    });
+
+};
+
+</script>
 </body>
 </html>
