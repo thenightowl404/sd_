@@ -5,7 +5,67 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 from .models import Notification
 from django.shortcuts import render, redirect, get_object_or_404
+from .models import UserSettings
+import json
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 
+@login_required
+def help(request):
+    return render(request, "help.html")
+
+
+
+
+@login_required
+def settings(request):
+    settings, created = UserSettings.objects.get_or_create(
+        user=request.user
+    )
+
+    return render(request, "settings.html", {
+        "settings": settings
+    }) 
+
+@login_required
+@require_POST
+def save_settings(request):
+
+    data = json.loads(request.body)
+
+    settings = UserSettings.objects.get(user=request.user)
+
+    settings.theme = data["theme"]
+    settings.font_size = data["font_size"]
+
+    settings.autoplay = data["autoplay"]
+    settings.subtitles = data["subtitles"]
+
+    settings.data_saver = data["data_saver"]
+
+    settings.notification_sound = data["notification_sound"]
+    settings.vibration = data["vibration"]
+
+    settings.save()
+
+    return JsonResponse({
+        "success": True
+    })
+
+@login_required
+def get_settings(request):
+
+    settings = UserSettings.objects.get(user=request.user)
+
+    return JsonResponse({
+        "theme": settings.theme,
+        "font_size": settings.font_size,
+        "autoplay": settings.autoplay,
+        "subtitles": settings.subtitles,
+        "data_saver": settings.data_saver,
+        "notification_sound": settings.notification_sound,
+        "vibration": settings.vibration,
+    })
 @login_required
 def clear_notifications(request):
     Notification.objects.filter(user=request.user).delete()
